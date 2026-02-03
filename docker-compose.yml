@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  weight-service:
+    build: .
+    container_name: weight-service
+    ports:
+      - "8100:8100"
+    environment:
+      SERVICE_PORT: 8100
+      WEIGHT_SERVICE_PORT: 8100
+      APP_ENV: prod
+      LOG_LEVEL: INFO
+      # Scale configuration - adjust as needed
+      # SCALE_PORT: /dev/ttyUSB0
+      # SCALE_BAUDRATE: 9600
+      # SCALE_READ_INTERVAL_MS: 10
+    # Uncomment to access USB serial devices from host
+    # devices:
+    #   - /dev/ttyUSB0:/dev/ttyUSB0
+    # privileged: true  # Alternative: grant full device access
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8100/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    networks:
+      - fruitstack
+
+networks:
+  fruitstack:
+    driver: bridge
+

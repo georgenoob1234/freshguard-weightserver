@@ -1,3 +1,5 @@
+Will be deprecated.
+
 # Weight Service
 
 A FastAPI microservice for reading weight data from a serial-connected scale. Part of the FruitStack computer vision system.

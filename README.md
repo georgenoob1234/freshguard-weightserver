@@ -1,4 +1,4 @@
-Will be deprecated.
+Deprecated.
 
 # Weight Service
 
